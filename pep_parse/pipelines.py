@@ -3,7 +3,7 @@ from datetime import datetime as dt
 from pathlib import Path
 
 
-BASE_DIR = Path(__file__).absolute().parent
+BASE_DIR = Path(__file__).parents[1]
 
 
 class PepParsePipeline:
@@ -24,8 +24,9 @@ class PepParsePipeline:
         results.append(('Total', self.pep_count))
 
         current_time = dt.now().strftime('%Y_%m_%d_%H_%M_%S')
-        dir_path = BASE_DIR / '../results'
+        dir_path = BASE_DIR / 'results'
         file_path = dir_path / f'status_summary_{current_time}.csv'
+        print(file_path)
         with open(file_path, 'w', encoding='utf-8') as file:
             writer = csv.writer(file, dialect='unix')
             writer.writerows(results)
